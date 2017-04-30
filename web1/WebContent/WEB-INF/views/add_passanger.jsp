@@ -1,13 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>World Adventures Airlines</title>
 </head>
 <body>
-	<h2>Welcome to World Adventures Airlines</h2>
-	<h3>This is a JSP...</h3>
+ <div class="container">
+	<div class="title" >Add a passnger</div>
+	
+	<fieldset>
+     <legend>Passanger details</legend>
+	<form action="AddPassanger" method="post">
+	<div class="inputField">
+		<label for="first-name" class="inputLabel">First name:</label>
+		 <input name="first-name" type="text"/>
+     </div>
+     
+     	<div class="inputField">
+		<label for="last-name" class="inputLabel">Last name:</label>
+		 <input name="lsst-name" type="text"/>
+     </div>
+     
+     	<div class="inputField">
+		<label for="dob" class="inputLabel">Date of birth:</label>
+		 <input name="dob" type="text"/>
+     </div>
+     
+     	<div class="inputField">
+		<label for="gender" class="inputLabel">Gender:</label>
+		 <select name="gender">
+		 	<option value="Male">Male</option>
+		 	<option value="Female">Female</option>
+		 </select>
+     </div>
+      </form>
+     </fieldset>
+     
+     <div class="inputField" id="submitField">
+     	<input id="submitButton" type="submit" form="AddPassanger" value="Add new passanger"/>
+     </div>
+
+  </div>
+	
 </body>
 </html>
