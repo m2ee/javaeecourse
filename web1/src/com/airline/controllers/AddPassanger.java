@@ -3,6 +3,8 @@ package com.airline.controllers;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,26 +42,55 @@ public class AddPassanger extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("errors",false);
+		
 		String firstName = request.getParameter("first-name");
-		System.out.println("First Name: " + firstName);
+		
+		
+		if(firstName.length() == 0){
+			System.out.println("empty first name error");
+			request.setAttribute("errors",true);
+			request.setAttribute("firstName error",true);
+		} else {
+			 System.out.println("First Name: " + firstName);
+		}
 
 		String lastName = request.getParameter("last-name");
-		System.out.println("Last Name: " + lastName);
+		
+		if(lastName.length() == 0){
+			System.out.println("empty last name error");
+			request.setAttribute("errors",true);
+			request.setAttribute("lastName error",true);
+		} else {
+			 System.out.println("Last Name: " + lastName);
+		}
 		
 		String dob_row = request.getParameter("dob");
 		String[] dobArray = dob_row.split("\\/");
 		
-		String month = dobArray[0];
-		String day   = dobArray[1];
-		String year  = dobArray[2];
+		String pattern = "^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$";
+		Pattern r = Pattern.compile(pattern);
+		Matcher m = r.matcher(dob_row);
 		
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.YEAR, Integer.parseInt(year));
-		cal.set(Calendar.MONTH, Integer.parseInt(month));
-		cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
+		if(m.find()){
+			String month = dobArray[0];
+			String day   = dobArray[1];
+			String year  = dobArray[2];
+			
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.YEAR, Integer.parseInt(year));
+			cal.set(Calendar.MONTH, Integer.parseInt(month));
+			cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
+			
+			//Date dob = cal.getTime();
+			System.out.println("Date : " + cal.getTime());
+		} else {
+			System.out.println("date error");
+			request.setAttribute("errors",true);
+			request.setAttribute("date error",true);
+		}
 		
-		//Date dob = cal.getTime();
-		System.out.println("Date : " + cal.getTime());
+
 		
 		String gender = request.getParameter("gender");
 		System.out.println("Gender : " + gender);
