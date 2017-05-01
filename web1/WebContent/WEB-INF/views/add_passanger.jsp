@@ -13,7 +13,7 @@
 
 		<fieldset class="fieldset">
 			<legend align="center" class="legend">Passanger details</legend>
-			<form action="AddPassanger" method="post">
+			<form action="AddPassanger" method="post" id="form1">
 				<div class="inputField">
 					<label for="first-name" class="inputLabel">First name:</label> <input
 						name="first-name" type="text" />
@@ -21,7 +21,7 @@
 
 				<div class="inputField">
 					<label for="last-name" class="inputLabel">Last name:</label> <input
-						name="lsst-name" type="text" />
+						name="last-name" type="text" />
 				</div>
 
 				<div class="inputField">
@@ -40,7 +40,7 @@
 		</fieldset>
 
 		<div class="inputField2" id="submitField">
-			<input id="submitBtn" type="submit" form="AddPassanger"
+			<input id="submitBtn" type="submit" form="form1"
 				value="Add new passanger" />
 		</div>
 
