@@ -1,6 +1,7 @@
 package com.airline.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -12,6 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.airiline.models.Gender;
+import com.airiline.models.Passenger;
 
 /**
  * Servlet implementation class AddPassanger
@@ -44,6 +48,7 @@ public class AddPassanger extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("errors",false);
 		
+		Passenger p = new Passenger();
 		String firstName = request.getParameter("first-name");
 		
 		
@@ -53,6 +58,7 @@ public class AddPassanger extends HttpServlet {
 			request.setAttribute("firstName error",true);
 		} else {
 			 System.out.println("First Name: " + firstName);
+			 p.setFirstName(firstName);
 		}
 
 		String lastName = request.getParameter("last-name");
@@ -63,6 +69,7 @@ public class AddPassanger extends HttpServlet {
 			request.setAttribute("lastName error",true);
 		} else {
 			 System.out.println("Last Name: " + lastName);
+			 p.setLastName(lastName);
 		}
 		
 		String dob_row = request.getParameter("dob");
@@ -82,8 +89,9 @@ public class AddPassanger extends HttpServlet {
 			cal.set(Calendar.MONTH, Integer.parseInt(month));
 			cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
 			
-			//Date dob = cal.getTime();
+			Date dob = cal.getTime();
 			System.out.println("Date : " + cal.getTime());
+			p.setDob(dob);
 		} else {
 			System.out.println("date error");
 			request.setAttribute("errors",true);
@@ -94,11 +102,16 @@ public class AddPassanger extends HttpServlet {
 		
 		String gender = request.getParameter("gender");
 		System.out.println("Gender : " + gender);
-
+        p.setGender(Gender.valueOf(gender));
 		
 		if((Boolean)request.getAttribute("errors")){
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/add_passanger.jsp");
 			view.forward(request, response);
+		} else{
+			ArrayList<Passenger> pList = new ArrayList();
+			pList.add(p);
+			
+			response.sendRedirect("");
 		}
 		
 	}
