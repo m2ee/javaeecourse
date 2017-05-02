@@ -40,17 +40,17 @@
 			<form action="AddPassanger" method="post" id="form1">
 				<div class="inputField">
 					<label for="first-name" class="inputLabel">First name:</label> <input
-						name="first-name" type="text" />
+						name="first-name" type="text" value="<%= request.getAttribute("first-name") %>"/>
 				</div>
 
 				<div class="inputField">
 					<label for="last-name" class="inputLabel">Last name:</label> <input
-						name="last-name" type="text" />
+						name="last-name" type="text" value="<%= request.getAttribute("last-name")%>" />
 				</div>
 
 				<div class="inputField">
 					<label for="dob" class="inputLabel">Date of birth:</label> <input
-						name="dob" type="text" />
+						name="dob" type="text" value="<%= request.getAttribute("dob")%>"/>
 				</div>
 
 				<div class="inputField">

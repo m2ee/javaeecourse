@@ -37,6 +37,9 @@ public class AddPassanger extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("first-name","");
+		request.setAttribute("last-name","");
+		request.setAttribute("dob","");
 
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/add_passanger.jsp");
 		view.forward(request, response);
@@ -57,9 +60,11 @@ public class AddPassanger extends HttpServlet {
 			System.out.println("empty first name error");
 			request.setAttribute("errors",true);
 			request.setAttribute("firstName error",true);
+			request.setAttribute("first-name","");
 		} else {
 			 System.out.println("First Name: " + firstName);
 			 p.setFirstName(firstName);
+			 request.setAttribute("first-name",firstName);
 		}
 
 		String lastName = request.getParameter("last-name");
@@ -68,18 +73,22 @@ public class AddPassanger extends HttpServlet {
 			System.out.println("empty last name error");
 			request.setAttribute("errors",true);
 			request.setAttribute("lastName error",true);
+			request.setAttribute("last-name","");
 		} else {
 			 System.out.println("Last Name: " + lastName);
 			 p.setLastName(lastName);
+			 request.setAttribute("last-name",lastName);
 		}
 		
-		String dob_row = request.getParameter("dob");
+		String dob_row = request.getParameter("dob");		
 		String[] dobArray = dob_row.split("\\/");
 		
 		String pattern = "^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$";
 		Pattern r = Pattern.compile(pattern);
 		Matcher m = r.matcher(dob_row);
 		
+		request.setAttribute("dob",dob_row);
+
 		if(m.find()){
 			String month = dobArray[0];
 			String day   = dobArray[1];
@@ -97,9 +106,13 @@ public class AddPassanger extends HttpServlet {
 			System.out.println("date error");
 			request.setAttribute("errors",true);
 			request.setAttribute("date error",true);
+			
+			if(dob_row.length() == 0){
+				request.setAttribute("dob","");
+			}
 		}
 		
-
+		
 		
 		String gender = request.getParameter("gender");
 		System.out.println("Gender : " + gender);
