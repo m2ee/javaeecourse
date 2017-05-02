@@ -96,9 +96,11 @@ public class AddPassanger extends HttpServlet {
 		System.out.println("Gender : " + gender);
 
 		
+		if((Boolean)request.getAttribute("errors")){
+			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/add_passanger.jsp");
+			view.forward(request, response);
+		}
 		
-		
-		doGet(request, response);
 	}
 
 }

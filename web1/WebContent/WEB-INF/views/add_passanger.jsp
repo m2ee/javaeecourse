@@ -9,8 +9,32 @@
 </head>
 <body>
 	<div class="container">
-		<div class="title">Add a passnger</div>
+		<div class="title">Add a passanger</div>
 
+         <%
+             if(request.getAttribute("errors") != null){
+          %>
+            <fieldset>
+                <legend>Errors</legend>
+                <ul>
+                	<% if(request.getAttribute("firstName error") != null) { %>
+                	       <li>Empty first name field</li>
+                	<% } %>
+                </ul>
+                <ul>
+                	<% if(request.getAttribute("lastName error") != null) { %>
+                	       <li>Empty last name field</li>    
+                	<% } %>
+                </ul>
+                <ul>
+                	<% if(request.getAttribute("date error") != null) { %>
+                	       <li>Error in date field</li>
+                	<% } %>
+                </ul>
+            </fieldset>
+          <%
+               }
+           %>
 		<fieldset class="fieldset">
 			<legend align="center" class="legend">Passanger details</legend>
 			<form action="AddPassanger" method="post" id="form1">
