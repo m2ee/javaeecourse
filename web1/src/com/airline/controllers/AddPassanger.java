@@ -106,18 +106,21 @@ public class AddPassanger extends HttpServlet {
         p.setGender(Gender.valueOf(gender));
 		
 		if((Boolean)request.getAttribute("errors")){
+			System.out.println("ima greska");
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/add_passanger.jsp");
 			view.forward(request, response);
 		} else{
 			
 			ServletContext sc = this.getServletContext();
 			
-			ArrayList<Passenger> pList = new ArrayList();
-			pList.add(p);
+			synchronized (this) {
+				ArrayList<Passenger> pList = (ArrayList)sc.getAttribute("passangers");
+				pList.add(p);
+				sc.setAttribute("passangers", pList);
+				System.out.println("synchronized");
+			}
 			
-			sc.setAttribute("passangers", pList);
-			
-			response.sendRedirect("");
+			response.sendRedirect("");	
 		}
 		
 	}
