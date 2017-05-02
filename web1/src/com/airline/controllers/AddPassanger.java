@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -108,8 +109,13 @@ public class AddPassanger extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/add_passanger.jsp");
 			view.forward(request, response);
 		} else{
+			
+			ServletContext sc = this.getServletContext();
+			
 			ArrayList<Passenger> pList = new ArrayList();
 			pList.add(p);
+			
+			sc.setAttribute("passangers", pList);
 			
 			response.sendRedirect("");
 		}
